@@ -1,3 +1,5 @@
+import '../smtp/capabilities.dart';
+import '../smtp/internal_representation/internal_representation.dart';
 import 'address.dart';
 import 'attachment.dart';
 
@@ -73,4 +75,10 @@ class Message {
 
   Iterable<Address> _asAddresses(Iterable<dynamic> as) =>
       (as ?? []).map((a) => a is String ? Address(a) : a as Address);
+
+  /// Get email as data 
+  Stream<List<int>> data(Capabilities capabilities) {
+      final irMessage = IRMessage(this);
+      return irMessage.data(capabilities);
+  }
 }
